@@ -11,7 +11,7 @@ const HEIGHT = 6;
 let currPlayer = 1; // active player: 1 or 2
 let board = []; // array of rows, each row is array of cells  (board[y][x])
 
-// Game Instructions
+// Game Instructions. init open and close button. toggle between classes
 const open = document.getElementById('open');
 const close = document.getElementById('close');
 open.addEventListener('click', function() {
