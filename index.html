@@ -32,11 +32,13 @@
     <title>Connect Four</title>
   </head>
   <body>
+    <!-- Background of particles js -->
     <div id="particles-js"></div>
+    <!-- Instructions menu button -->
     <button id="open" class="nav-button nav-open ">
       Instructions
     </button>
-
+    <!-- Description of the game -->
     <div class="nav nav-black">
       <div class="nav nav-red">
         <div class="nav nav-white">
@@ -85,15 +87,20 @@
       <div class="row">
         <h1>Connect 4</h1>
       </div>
+      <!-- modal for confirming a restart and winning the game -->
       <div id="alert"></div>
+      <!-- information row with players turn and restart button -->
       <div class="row info-row">
         <div class="col-8" style="text-align: left;">
           <h5>Player <span id="nextPlayer">1</span> turn</h5>
         </div>
         <div class="col-4">
-          <h5 id="restart-game" onclick="restart()">Restart</h5>
+          <h5 id="restart-game" onclick="restart()">
+            <i class="fas fa-redo"></i> Restart
+          </h5>
         </div>
       </div>
+      <!-- Game and Board -->
       <div id="game">
         <table id="board"></table>
       </div>

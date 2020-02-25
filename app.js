@@ -14,7 +14,9 @@ let board = []; // array of rows, each row is array of cells  (board[y][x])
 // Game Instructions. init open and close button. toggle between classes
 const open = document.getElementById('open');
 const close = document.getElementById('close');
-open.addEventListener('click', function() {
+
+// function for opening instructions. adding classes
+open.addEventListener('click', () => {
   const navBlack = document.querySelector('.nav-black'),
     navRed = document.querySelector('.nav-red'),
     navWhite = document.querySelector('.nav-white'),
@@ -28,7 +30,8 @@ open.addEventListener('click', function() {
   navText.classList.add('visible');
 });
 
-close.addEventListener('click', function() {
+// function for closing instructions. removing classes
+close.addEventListener('click', () => {
   const navBlack = document.querySelector('.nav-black'),
     navRed = document.querySelector('.nav-red'),
     navWhite = document.querySelector('.nav-white'),
@@ -42,15 +45,18 @@ close.addEventListener('click', function() {
   navText.classList.remove('visible');
 });
 
-const restartGame = document.getElementById('restart-game'); // init restart text
+// init restart text and icon
+const restartGame = document.getElementById('restart-game');
 
 /*
-This code adds a modal tthat confirms if the player wants to restart.
+This code adds a bootsrap modal that confirms if the player wants to restart.
 restart on refreshes page
 */
 
 const restart = () => {
+  // init alert div
   let alert = document.getElementById('alert');
+  // adding modal bootstrap component
   alert.innerHTML = `
       <div id="myModal" class="modal fade" tabindex="-1" role="dialog">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -72,6 +78,7 @@ const restart = () => {
       </div>
     </div>
       `;
+  //Bootstrap snipit to manually open modal
   $('#myModal').modal('show');
 };
 
@@ -82,8 +89,11 @@ const restart = () => {
 const makeBoard = () => {
   // TODO: set "board" to empty HEIGHT x WIDTH matrix array
 
+  // create and push 6 empty rows to board array
   for (let y = 0; y < HEIGHT; y++) {
     board.push([]);
+
+    //create and push 7 empty columns
     for (let x = 0; x < WIDTH; x++) {
       board[y].push(null);
     }
@@ -106,7 +116,6 @@ const makeHtmlBoard = () => {
 
   /*
   Creates the number of columns from 0 to the WIDTH variable. Then appends to the 'top' level row. The 'top' level row appends to the htmlBoard
- 
  */
 
   for (let x = 0; x < WIDTH; x++) {
@@ -126,6 +135,8 @@ const makeHtmlBoard = () => {
     for (let x = 0; x < WIDTH; x++) {
       const cell = document.createElement('td');
       cell.setAttribute('id', `${y}-${x}`);
+      /*I am creating and appending a span element inside each cell so I can style it to make it look like a circle in the middle.
+       */
       const span = document.createElement('span');
       span.setAttribute('class', 'circle');
       cell.append(span);
@@ -144,6 +155,8 @@ const findSpotForCol = x => {
       return y;
     }
   }
+  // just incase you try to click again
+  alert('This column is filled to the top already');
   return null;
 };
 
@@ -162,6 +175,10 @@ const placeInTable = (y, x) => {
 
 const endGame = msg => {
   // TODO: pop up alert message
+
+  /**
+   *  I met a bootstrap modal congradulating the winner. I'm using set time out so it give the piece time to fall down.
+   */
   window.setTimeout(() => {
     let alert = document.getElementById('alert');
     alert.innerHTML = `
@@ -192,7 +209,12 @@ const endGame = msg => {
 /** handleClick: handle click of column top to play piece */
 
 const handleClick = evt => {
-  const isNotNull = curVal => curVal !== null;
+  const isNotNull = curVal => {
+    if (curVal !== null) {
+      return curVal;
+    }
+  };
+
   // get x from ID of clicked cell
   const x = +evt.target.id;
 
@@ -204,6 +226,7 @@ const handleClick = evt => {
 
   // place piece in board and add to HTML table
   // TODO: add line to update in-memory board
+
   board[y][x] = currPlayer;
 
   placeInTable(y, x);
@@ -223,7 +246,16 @@ const handleClick = evt => {
 
   // switch players
   // TODO: switch currPlayer 1 <-> 2
+
+  // if (currPlayer === 1) {
+  //   currPlayer = 2;
+  // } else {
+  //   currPlayer = 1;
+  // }
+
   currPlayer = currPlayer === 1 ? 2 : 1;
+
+  // changes color of current player text right when piece falls
   window.setTimeout(() => {
     let nextPlayer = document.getElementById('nextPlayer');
     nextPlayer.innerText = currPlayer;

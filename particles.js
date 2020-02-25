@@ -1,3 +1,5 @@
+// Particles JS becauase I love it
+
 particlesJS('particles-js', {
   particles: {
     number: { value: 160, density: { enable: true, value_area: 800 } },
